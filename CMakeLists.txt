@@ -16,15 +16,14 @@ if(NOT DEFINED APP_DATA_PATH)
 endif()
 
 add_definitions(-DAPP_DATA_PATH="${APP_DATA_PATH}")
-
+find_package(Boost COMPONENTS system)
 find_package(Qt5 COMPONENTS Widgets Xml Network Svg REQUIRED)
-
-set(PROJ4_DIR "ext/PROJ/build/local_install/lib/cmake/proj4")
+#set(PROJ4_DIR "ext/PROJ/build/local_install/lib/cmake/proj4")
 find_package(PROJ4 REQUIRED)
-
-set(PPRZLINK_PATH ext/pprzlink/lib/v2.0/C++)
-add_subdirectory(${PPRZLINK_PATH} pprzlink)
-
+#set(PPRZLINK_PATH ext/pprzlink/lib/v2.0/C++)
+#add_subdirectory(${PPRZLINK_PATH} pprzlink)
+set(pprzlink++_DIR ext/pprzlink/lib/v2.0/C++/build/local_install/share/pprzlink++/cmake)
+find_package(pprzlink++ REQUIRED)
 set(SOURCE
     ${SOURCE}
     src/main.cpp
@@ -116,6 +115,7 @@ include_directories(
     src/widgets/basics/
     ${PPRZLINK_PATH}
     ${PROJ4_INCLUDE_DIRS}
+    ${pprzlink++_DIR}/../../../include
 )
 
 add_executable(${PROJECT_NAME} ${SOURCE})
